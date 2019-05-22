@@ -1,7 +1,8 @@
 const express = require('express');
-const cors = require('cors');
 const app = express();
 const port = 3002;
+const cors = require('cors');
+
 
 const security = require('./security/security.js');
 
@@ -16,7 +17,7 @@ app.use(cors());
 
 // return application state to the front-end
 app.get('/applicationstate', function(req, res){
-    res.send(config.state);
+    res.jsonp(config.state);
 });
 
 // For front-end to poll for personData

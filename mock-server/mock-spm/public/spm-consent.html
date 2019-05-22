@@ -112,7 +112,6 @@
   				data: {},
   				type: "GET", // get from serverside
   				success: function(data) {
-            console.log(data);
   					// successful response from serverside
   					if (data.statusCode == 200) { // successful
   						// fill up the application form
@@ -132,7 +131,6 @@
         url: "/getCurrentProfile",
         type: "GET",
         success: function(data) {
-          console.log(data);
           populate(data);
         },
         dataType: "json",
@@ -163,7 +161,6 @@
       return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
 
-console.log(formatDate(new Date()));
   </script>
 </body>
 

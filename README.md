@@ -13,9 +13,9 @@ Follow the instructions given by the links below depending on your OS.
 
 ### 1.2 Run NPM install
 
-Open 2 terminal and navigate to "client" folder and "mock-server" respectively
+Open 3 terminal and navigate to "client", "webhook" and "mock-server" folder respectively
 
-Run the following command in both terminal:
+Run the following command in all terminal:
 ```
 npm install
 ```

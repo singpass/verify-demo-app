@@ -81,11 +81,7 @@
             url: "http://localhost:3002/applicationstate",
             type: "GET",
             success: function(data) {
-              alert(data);
               state = data;
-            },
-            fail: function(data){
-              alert(data);
             },
             dataType: "json",
             timeout: 5000
