@@ -102,7 +102,7 @@ app.get('/getPersona', function(req, res){
 
 const arrayToObject = (array) =>
    array.reduce((obj, item) => {
-     obj[item.uinfin] = item.v3
+     obj[item.uinfin] = item.value
      return obj
    }, {});
 
