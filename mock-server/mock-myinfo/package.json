@@ -1,0 +1,17 @@
+{
+  "name": "mock-myinfo",
+  "version": "1.0.0",
+  "description": "Mock MyInfo server",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "MyInfo Team",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "node-jose": "^1.1.3"
+  }
+}
