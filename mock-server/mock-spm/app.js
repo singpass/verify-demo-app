@@ -33,8 +33,8 @@ app.get('/getCurrentProfile', function(req, res){
     res.send(persona[selectedUinfin]);
 });
 
-app.get('/myinfo/:clientId', function(req, res){
-  var clientId = req.params.clientId;
+app.get('/myinfo', function(req, res){
+  var clientId = config.clientId;
   var txnNo = nonce();
 
   var requestPath = "/" + selectedUinfin + "?clientId=" + clientId + "&state=" + state + "&txnNo=" + txnNo;
@@ -60,7 +60,7 @@ app.get('/myinfo/:clientId', function(req, res){
     })
     .catch(error => {
       console.log("Mock SPM - ",error);
-      res.send(500);
+      res.sendStatus(500);
     });
 });
 
@@ -86,6 +86,10 @@ app.get('/getPersona', function(req, res){
           }
           res.send(arr);
         }
+      })
+      .catch(error => {
+        console.log(error);
+        res.sendStatus(500);
       })
   }
   else{

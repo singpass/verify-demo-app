@@ -78,10 +78,14 @@
         // This is just a demo, it is set in config.json
         var state;
         $.ajax({
-            url: "/getEnv",
+            url: "http://localhost:3002/applicationstate",
             type: "GET",
             success: function(data) {
-              state = data.state;
+              alert(data);
+              state = data;
+            },
+            fail: function(data){
+              alert(data);
             },
             dataType: "json",
             timeout: 5000
@@ -90,7 +94,7 @@
         (function poll() {
           setTimeout(function() {
               $.ajax({
-                  url: "/getData?state="+state,
+                  url: "http://localhost:3002/getData?state="+state,
                   type: "GET",
                   success: function(data) {
                     $("#page1").hide();

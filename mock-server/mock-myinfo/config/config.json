@@ -1,11 +1,11 @@
 {
-  "STG2-QRID-SELF-TEST": {
+  "STG2-SGVERIFY-SELF-TEST": {
     "appName": "Staging MyInfo Self test app",
     "entityName": "MyInfo Building Management",
     "entityUen": "180084010K",
     "appSecret": "WnBdUYAftjB8gLt4cjl1N01XulG1q7fn",
     "scope": "partialuinfin,name,race,dob,mobileno",
-    "callback": "localhost:3001/callback",
+    "callback": "localhost:3002/callback",
     "publicKey": "./cert/qrid_stg_public_cert.pem"
   },
   "personSampleRequest": {
