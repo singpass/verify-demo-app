@@ -1,4 +1,4 @@
-## QR Identity Demo App Setup
+## SG Verify Demo App Setup
 
 ### 1.1 Install Node and NPM
 
