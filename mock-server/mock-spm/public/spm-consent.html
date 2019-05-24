@@ -20,12 +20,12 @@
   <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="assets/vendor/themify-icons/css/themify-icons.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="assets/vendor/jquery-ui/css/jquery-ui.min.css" rel="stylesheet"> -->
+  <!-- <link href="assets/vendor/jquery-ui-sliderbutton/css/jquery.ui.sliderbutton.css" rel="stylesheet"> -->
 
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
   <title>SingPass Mobile (TEST) Consent Screen</title>
-  <meta name="keywords" content="" />
-  <meta name="author" content="Royce Cheng" />
 </head>
 
 <body style="background-color:#F5F5F5;">
@@ -38,6 +38,7 @@
     </div>
   </div>
 
+
   <div id="main-consent" class="container">
     <div class="row">
       <div class="col-sm-12 mt-2 mb-2">
@@ -47,7 +48,7 @@
         <div class="card card-shadow red-top">
           <div class="card-header">
             <div class="text-center mb-0">
-              <img src="assets/images/QR-login@1.5x.png" style="margin: auto;width: 160px;">
+              <img src="assets/images/consent-img-blue.png" style="margin: auto;width: 160px;">
               <p class="mt-3 mb-2">
                 <strong>SAMPLE APP</strong>
                 <br>VISITOR MANAGEMENT EXAMPLE
@@ -55,37 +56,44 @@
             </div>
           </div>
           <div class="card-body">
-            <div class="text-label">
-              Name
-            </div>
-            <div class="text-data" id="name">
-            </div>
-            <hr class="sep">
-            <div class="text-label">
-              Partial NRIC
-            </div>
-            <div class="text-data" id="partialuinfin">
-            </div>
-            <hr class="sep">
-            <div class="text-label">
-              Race
-            </div>
-            <div class="text-data" id="race">
-            </div>
-            <hr class="sep">
-            <div class="text-label">
-              Date of Birth
-            </div>
-            <div class="text-data" id="dob">
-            </div>
-            <hr class="sep">
-            <div class="text-label">
-              Mobile No.
-            </div>
-            <div class="text-data" id="mobileno">
-            </div>
+            <table style="width: 100%;">
+              <tr class="data-row sep-below first-row">
+                <td class="text-label">Name</td>
+                <td valign="top" id="name"/>
+              </tr>
+              <tr class="data-row sep-below">
+                <td class="text-label">Partial NRIC</td>
+                <td id="partialuinfin"/>
+              </tr>
+              <tr class="data-row sep-below">
+                <td class="text-label">Race</td>
+                <td id="race"/>
+              </tr>
+              <tr class="data-row sep-below">
+                <td class="text-label">Date of Birth</td>
+                <td id="dob"/>
+              </tr>
+              <tr class="data-row last-row">
+                <td class="text-label">Mobile No.</td>
+                <td id="mobileno"/>
+              </tr>
+            </table>
           </div>
         </div>
+        <div class="slide-to-send">
+          <input type="range" value="0" class="pullee" onchange="onSlideComplete()"/>
+          <span>SLIDE TO SEND</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- consent screen end -->
+
+  <div id="main-consent" class="container">
+    <div class="row">
+
+      <div class="col-sm-12">
+
         <div class="slide-to-send">
           <input type="range" value="0" class="pullee" onchange="onSlideComplete()"/>
           <span>SLIDE TO SEND</span>
@@ -115,7 +123,8 @@
   					// successful response from serverside
   					if (data.statusCode == 200) { // successful
   						// fill up the application form
-              window.location.href = "spm-success.html";
+              // window.location.href = "spm-success.html";
+              window.location.href = "spm-loading.html";
 
   					} else {
   						// error occured

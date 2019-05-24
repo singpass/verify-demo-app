@@ -31,9 +31,30 @@
 <body style="background-color:#ECE8E8;">
 
   <div id="main-phone">
-    <div class="phone-instructions">
-      <h3 class="mb-4">Launch SingPass Mobile (TEST) App below to begin.</h3>
-      <a href="spm-persona.html" class="app-icon"><img src="assets/images/spm-test-app-icon.png"></a>
+    <img src="assets/images/spm-choose-blue.jpg" style="width:100%;">
+    <span class="choose-text text-center">SingPass Mobile Screens for SG-Verify flow</span>
+    <div class="container">
+      <div class="row" style="top:30%;">
+        <div class="phone-instructions">
+          <h3 class="mb-4 mt-4">Select Persona</h3>
+        </div>
+        <div class="select-wrapper col-sm-12 mt-2">
+          <i class="fa fa-angle-down"></i>
+
+          <select id="persona" class="form-control" name="persona" required="">
+              <option value="" disabled="">- Select Persona -</option>
+          </select>
+        </div>
+        <!-- <a href="spm-home.html">
+            <button class="btn bottom-btn text-center">
+                Proceed to SingPass Mobile (TEST) App
+            </button>
+        </a> -->
+        <a class="bottom-btn" onclick="proceed()">
+            Proceed to SingPass Mobile (TEST) App
+        </a>
+        <!-- <a href="spm-persona.html" class="app-icon mt-4 disabled-icon"><img src="assets/images/spm-test-app-icon.png"></a> -->
+      </div>
     </div>
   </div>
 
@@ -42,6 +63,36 @@
   <script type="text/javascript" src="assets/vendor/jquery-ui/js/jquery-ui.min.js"></script>
   <script type="text/javascript" src="assets/vendor/jquery-ui-sliderbutton/js/jquery.ui.sliderbutton.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+  <script>
+  var select = document.getElementById("persona");
+  var persona;
+
+  var selectedUinfin = "";
+
+  $.ajax({
+      url: "/getPersona",
+      type: "GET",
+      success: function(data) {
+        persona = data;
+
+        for(var i = 0; i < persona.length; i++){
+          var option = document.createElement("option");
+          option.text = persona[i].uinfin + " - " + persona[i].name;
+          option.value = persona[i].uinfin;
+          select.appendChild(option);
+        }
+      },
+      dataType: "json",
+      timeout: 5000
+  });
+
+  function proceed(){
+    var uinfin = document.getElementById("persona").value;
+    window.location = "spm-home?uinfin="+uinfin;
+  }
+
+  </script>
 </body>
 
 </html>

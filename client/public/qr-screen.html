@@ -16,62 +16,64 @@
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
   <title>Sample Visitor Management System Screen</title>
-  <meta name="keywords" content="" />
-  <meta name="author" content="Royce Cheng" />
 </head>
 
-<body style="background-color:#0b9be0;">
-    <div id="sample-header" class="pl-4">
-        <strong class="f-20">SAMPLE APP FOR QR IDENTITY - VISITOR MANAGEMENT EXAMPLE</strong><br>
-        1. To begin, click the SingPass Mobile (TEST) app on the right.<br>
-        2. Simulate consent on the SPM app on the right.<br>
-        3. Current page will be updated with the profile.
-    </div>
+
+
+<body style="background-color:#F3FFFF;">
 
     <div id="sample-main" class="container-fluid">
-      <div class="row" id="page1">
+      <div class="row">
         <div class="col-sm-12 welcome-header">
-            <h1>Self-Registration Counter</h1>
+            <h1>VISITOR MANAGEMENT SYSTEM</h1>
         </div>
         <div class="col-sm-12 welcome-category">
-            <p>I am <span>a visitor <i class="fa fa-caret-down"></i></span></p>
-            <img src="assets/images/qr-code.png">
+            <p>To begin, use the SingPass Mobile (TEST) screen on the right to simulate the scanning of the QR Code displayed on the kiosk.</p>
+            <p>Once the consent is given on the SingPass Mobile (TEST) screen, the fields below will be populated by the payload file received using a listener.</p>
         </div>
       </div>
-      <div class="row" id="page2">
-        <div class="col-sm-12 welcome-header">
-            <h1>Self-Registration Counter</h1>
-        </div>
-        <div class="col-sm-12 welcome-category">
-            <p>Welcome <span id="name"></span></p>
-            <table class="welcome-details" style="margin-top: 50px;">
-              <tr>
-                <td style="padding-right: 20px;"><strong>Partial NRIC:</strong></td>
-                <td id="partialuinfin"></td>
-              </tr>
-              <tr>
-                <td style="padding-right: 20px;"><strong>Race:</strong></td>
-                <td id="race"></td>
-              </tr>
-              <tr>
-                <td style="padding-right: 20px;"><strong>Date of Birth:</strong></td>
-                <td id="dob"></td>
-              </tr>
-              <tr>
-                <td style="padding-right: 20px;"><strong>Mobile Number:</strong></td>
-                <td id="mobileno"></td>
-              </tr>
-            </table>
+      <hr class="pb-3">
+      <div class="row mt-4">
+        <label class="col-sm-3">
+            Name:
+        </label>
+        <input class="col-sm-6" type="text" name="name" id="name" disabled>
+      </div>
+      <div class="row mt-2">
+        <label class="col-sm-3">
+            Partial NRIC:
+        </label>
+        <input class="col-sm-6" type="text" name="name" id="partialuinfin" disabled>
+      </div>
+      <div class="row mt-2">
+        <label class="col-sm-3">
+            Race:
+        </label>
+        <input class="col-sm-6" type="text" name="name" id="race" disabled>
+      </div>
+      <div class="row mt-2">
+        <label class="col-sm-3">
+            Date of Birth:
+        </label>
+        <input class="col-sm-6" type="text" name="name" id="dob" disabled>
+      </div>
+      <div class="row mt-2">
+        <label class="col-sm-3">
+            Mobile No:
+        </label>
+        <input class="col-sm-6" type="text" name="name" id="mobileno" disabled>
+      </div>
+
+        <a class="restart-link" onclick="reset()" id="resetButton">
+            <span class="fa fa-undo"></span> RESTART
+        </a>
         </div>
       </div>
     </div>
-    <a class="restart-link" onclick="reset()" id="resetButton" style="colour: white">
-        <span class="fa fa-undo"></span> RESTART
-    </a>
+
     <script type="text/javascript" src="assets/vendor/jquery-3.4.1.min.js"></script>
     <script>
       window.onload = function(){
-        $("#page2").hide();
         $("#resetButton").hide();
 
         // 'state' should be randomly generated and add to QR
@@ -93,8 +95,6 @@
                   url: "http://localhost:3002/getData?state="+state,
                   type: "GET",
                   success: function(data) {
-                    $("#page1").hide();
-                    $("#page2").show();
                     $("#resetButton").show();
                     populate(data);
                   },
@@ -107,8 +107,6 @@
       }
 
       function reset(){
-        $("#page1").show();
-        $("#page2").hide();
         $("#resetButton").hide();
         resetForm();
       }
@@ -145,4 +143,5 @@
         return day + ' ' + monthNames[monthIndex] + ' ' + year;
       }
     </script>
+
 </body>

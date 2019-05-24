@@ -23,78 +23,49 @@
 
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-  <title>SingPass Mobile (TEST) Choose Persona Screen</title>
+  <title>SingPass Mobile (TEST) Loading Screen</title>
   <meta name="keywords" content="" />
   <meta name="author" content="Royce Cheng" />
 </head>
 
 <body style="background-color:#F5F5F5;">
 
-  <!-- choose screen start -->
+  <!-- success screen start -->
   <div id="spm-header-home">
     <div class="container">
       <strong>SingPass Mobile (TEST)</strong>
     </div>
   </div>
 
-  <div id="main-persona" class="container">
+  <div id="main-success" class="container">
     <div class="row">
       <div class="col-sm-12 mt-3">
         <div class="card card-shadow full-height-card text-center">
-          <div class="persona-section">
-            <img src="assets/images/spm-choose.png" style="width:100%;">
-            <span class="choose-text">SingPass Mobile Screens for QR Identity Flow</span>
-            <div class="success-title mt-4">Select Persona</div>
-            <div class="select-wrapper col-sm-12 mt-2">
-              <i class="fa fa-angle-down"></i>
-              <select id="persona" class="form-control" name="persona" required="">
-                  <option value="" disabled="">- Select Persona -</option>
-              </select>
-            </div>
+          <div class="success-section">
+            <img src="assets/images/blue-loading.gif" class="success-img pb-3">
           </div>
-          <a class="bottom-btn" onclick="proceed()">
-              Proceed
-          </a>
+          <span class="verifying-text">VERIFYING</span>
         </div>
       </div>
     </div>
   </div>
-  <!-- choose screen end -->
+  <!-- success screen end -->
 
   <script src='assets/js/custom.js'></script>
   <script type="text/javascript" src="assets/vendor/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="assets/vendor/jquery-ui/js/jquery-ui.min.js"></script>
   <script type="text/javascript" src="assets/vendor/jquery-ui-sliderbutton/js/jquery.ui.sliderbutton.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+
   <script>
-  var select = document.getElementById("persona");
-  var persona;
+    // Your application has indicated there's an error
+    window.setTimeout(function(){
 
-  var selectedUinfin = "";
-
-  $.ajax({
-      url: "/getPersona",
-      type: "GET",
-      success: function(data) {
-        persona = data;
-
-        for(var i = 0; i < persona.length; i++){
-          var option = document.createElement("option");
-          option.text = persona[i].uinfin + " - " + persona[i].name;
-          option.value = persona[i].uinfin;
-          select.appendChild(option);
-        }
-      },
-      dataType: "json",
-      timeout: 5000
-  });
-
-  function proceed(){
-    var uinfin = document.getElementById("persona").value;
-    window.location = "spm-home?uinfin="+uinfin;
-  }
-
+        // Move to a new location or you can do something else
+        window.location.href = "spm-success.html";
+    }, 1000);
   </script>
+
 </body>
 
 </html>
