@@ -13,16 +13,15 @@ Follow the instructions given by the links below depending on your OS.
 
 ### 1.2 Run NPM install
 
-Open 3 terminal and navigate to "client", "webhook" and "mock-server" folder respectively
+Run the following command in the folder you unzipped the application:
 
-Run the following command in all terminal:
 ```
 npm install
 ```
 
 ### 1.3 Start the Application
 
-Execute the following command to start the application in both terminal:
+Execute the following command to start the application:
 ```
   npm start
 ```
