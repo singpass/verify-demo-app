@@ -8,7 +8,7 @@ Follow the instructions given by the links below depending on your OS.
 
 - [Install Node and NPM for Windows](http://blog.teamtreehouse.com/install-node-js-npm-windows)
 - [Install Node and NPM for Linux](http://blog.teamtreehouse.com/install-node-js-npm-linux)
-- [nstall Node and NPM for Mac](http://blog.teamtreehouse.com/install-node-js-npm-mac)
+- [Install Node and NPM for Mac](http://blog.teamtreehouse.com/install-node-js-npm-mac)
 
 
 ### 1.2 Run NPM install
