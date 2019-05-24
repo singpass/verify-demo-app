@@ -23,7 +23,7 @@ npm install
 
 Execute the following command to start the application:
 ```
-  npm start
+npm start
 ```
 
 **Access the Application on Your Browser**
