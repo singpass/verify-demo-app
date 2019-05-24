@@ -25,26 +25,33 @@
     <h1>SG-Verify Sample App</h1>
     <p>Please view it on a desktop screen.</p>
   </div>
-  <div id="dev-wrapper" class="medium-frame">
-    <div class="frame-but"></div>
-    <div class="wrapper-one squared-border">
-      <div class="notch-box"></div>
-      <div class="wrapper-two">
-        <div class="rounded-iframe"><iframe class="dev-frame" frameborder="0" id="spmScreen" name="devframe"></iframe></div>
+  <div class="outer-wrapper">
+    <div class="latest latest-active">
+      <div class="rounded-iframe"><iframe class="dev-frame" style="height:650px" frameborder="0"
+          id="visitorManagementScreen" name="devframe"></iframe></div>
+    </div>
+
+    <div id="dev-wrapper" class="medium-frame">
+      <div class="frame-but"></div>
+      <div class="wrapper-one squared-border">
+        <div class="notch-box"></div>
+        <div class="wrapper-two">
+          <div class="rounded-iframe"><iframe class="dev-frame" frameborder="0" id="spmScreen" name="devframe"></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
   <img src="assets/images/sg-verify-illustration.png" class="illustration-img">
-  <div class="latest latest-active">
-    <div class="rounded-iframe"><iframe class="dev-frame" style="height:650px" frameborder="0" id="visitorManagementScreen" name="devframe"></iframe></div>
-  </div>
+
 </body>
 
 <script>
   var visitorManagementScreen = "http://localhost:3001/vms";
   var spmScreen = "http://localhost:3003";
 
-  window.onload = function() {
+  window.onload = function () {
     document.getElementById("visitorManagementScreen").src = visitorManagementScreen;
     document.getElementById("spmScreen").src = spmScreen;
   }

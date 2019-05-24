@@ -1,3 +1,9 @@
+.outer-wrapper{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
 .dev-frame {
     background-color: #fff;
     position: absolute;
@@ -52,7 +58,7 @@
 
 @media(min-width:768px) {
     #dev-wrapper {
-        position: fixed;
+        /* position: fixed; */
         transition: all 400ms ease;
         z-index: 99;
     }
@@ -74,12 +80,12 @@
     .medium-frame {
         /* width: 424px; */
         /* left: 85%; */
-        right: 1%;
+        /* right: 1%;
         height: 750px;
         top: 50%;
         margin-top: -355px;
         margin-left: -212px;
-        transition: all 400ms ease
+        transition: all 400ms ease */
     }
     .medium-frame .dev-frame,
     .medium-frame .iframe-loader {
@@ -94,12 +100,12 @@
         margin-left: 11px
     }
     .latest {
-        position: fixed;
+        /* position: fixed; */
         width: 50%;
         height: 650px;
         background-color: #fff;
-        top: 40px;
-        left: 1%;
+        /* top: 40px;
+        left: 1%; */
         border: solid 1px rgba(0, 0, 0, .1);
         -webkit-box-shadow: 0 0 10px 1px rgba(0, 0, 0, .1);
         box-shadow: 0 0 10px 1px rgba(0, 0, 0, .1);
