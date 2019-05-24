@@ -1,0 +1,10 @@
+{
+  "name": "sg-verify-demo-app",
+  "version": "1.0.0",
+  "description": "SG Verify Demo App",
+  "scripts": {
+    "postinstall": "cd ./webhook && npm install && cd ../client && npm install && cd ../mock-server && npm install"
+  },
+  "author": "MyInfo Team",
+  "license": "ISC"
+}
