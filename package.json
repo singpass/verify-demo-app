@@ -3,8 +3,15 @@
   "version": "1.0.0",
   "description": "SG Verify Demo App",
   "scripts": {
+    "start": "npm-run-all --parallel start:client start:webhook start:mockserver",
+    "start:client": "cd ./client && npm start",
+    "start:webhook": "cd ./webhook && npm start",
+    "start:mockserver": "cd ./mock-server && npm start",
     "postinstall": "cd ./webhook && npm install && cd ../client && npm install && cd ../mock-server && npm install"
   },
   "author": "MyInfo Team",
+  "devDependencies": {
+    "npm-run-all": "^4.1.4"
+  },
   "license": "ISC"
 }
