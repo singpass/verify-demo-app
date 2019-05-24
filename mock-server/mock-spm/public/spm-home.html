@@ -73,17 +73,9 @@
     $.ajax({
         url: "/getCurrentProfile",
         type: "GET",
-        success: function(data) {
-          populate(data);
-        },
         dataType: "json",
         timeout: 5000
     });
-
-    function populate(data){
-      document.getElementById('name').innerHTML = data.name ? data.name.value : "";
-    }
-
   </script>
 </body>
 

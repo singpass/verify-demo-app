@@ -1,38 +1,4 @@
-$(document).ready(function() {
-    var isMobile = {
-        Android: function() {
-            return navigator.userAgent.match(/Android/i);
-        },
-        BlackBerry: function() {
-            return navigator.userAgent.match(/BlackBerry/i);
-        },
-        iOS: function() {
-            return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-        },
-        Opera: function() {
-            return navigator.userAgent.match(/Opera Mini/i);
-        },
-        Windows: function() {
-            return navigator.userAgent.match(/IEMobile/i);
-        },
-        any: function() {
-            return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-        }
-    };
-    if (isMobile.any()) {}
-    $('.dev-frame').on('load', function() {
-        $('.iframe-loader').addClass('loaded-iframe');
-        setTimeout(function() {
-            $('.iframe-loader').addClass('loaded-iframe');
-        }, 2500)
-    });
-    $('.dev-frame').on('unload', function() {
-        $('.iframe-loader').removeClass('loaded-iframe');
-    });
-    // setTimeout(function() {
-    //     $('.latest').addClass('latest-active');
-    // }, 500);
-});
+
 
 
 var inputRange = document.getElementsByClassName('pullee')[0],

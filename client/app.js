@@ -8,8 +8,8 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
 
-app.get('/qr', function(req, res){
-  res.sendFile(__dirname + '/public/qr-screen.html');
+app.get('/vms', function(req, res){
+  res.sendFile(__dirname + '/public/vms-screen.html');
 });
 
 

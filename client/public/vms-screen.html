@@ -112,19 +112,19 @@
       }
 
       function populate(data){
-        document.getElementById('name').innerHTML = data.name ? data.name.value : "";
-        document.getElementById('partialuinfin').innerHTML = data.partialuinfin ? data.partialuinfin.value : "";
-        document.getElementById('dob').innerHTML = data.dob ? formatDate(data.dob.value) : "";
-        document.getElementById('race').innerHTML = data.race ? data.race.desc : "";
-        document.getElementById('mobileno').innerHTML = data.mobileno ? data.mobileno.nbr.value : "";
+        document.getElementById('name').value = data.name ? data.name.value : "";
+        document.getElementById('partialuinfin').value = data.partialuinfin ? data.partialuinfin.value : "";
+        document.getElementById('dob').value = data.dob ? formatDate(data.dob.value) : "";
+        document.getElementById('race').value = data.race ? data.race.desc : "";
+        document.getElementById('mobileno').value = data.mobileno ? data.mobileno.nbr.value : "";
       }
 
       function resetForm(){
-        document.getElementById('name').innerHTML = "";
-        document.getElementById('partialuinfin').innerHTML = "";
-        document.getElementById('dob').innerHTML =  "";
-        document.getElementById('race').innerHTML =  "";
-        document.getElementById('mobileno').innerHTML =  "";
+        document.getElementById('name').value = "";
+        document.getElementById('partialuinfin').value = "";
+        document.getElementById('dob').value =  "";
+        document.getElementById('race').value =  "";
+        document.getElementById('mobileno').value =  "";
       }
 
       function formatDate(date) {

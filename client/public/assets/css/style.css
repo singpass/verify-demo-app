@@ -624,6 +624,7 @@ hr.sep {
 a.restart-link {
     position: fixed;
     color: #005050!important;
+    cursor: pointer;
     bottom: 10px;
     right: 10px;
 }
