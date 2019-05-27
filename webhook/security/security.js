@@ -32,7 +32,6 @@ security.verifyJWS = function verifyJWS(publicKey, compactJWS){
 
 // Decrypt JWE using private key
 security.decryptJWE = function decryptJWE(compactJWE, privateKey) {
-  console.log("COMPACTJWE:",compactJWE);
   var jweParts = compactJWE.split(".");
   var header = jweParts[0];
   var encryptedKey = jweParts[1];

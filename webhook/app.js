@@ -23,7 +23,7 @@ app.get('/applicationstate', function(req, res){
 // For front-end to poll for personData
 app.get('/getData', function(req, res){
   var state = req.query.state;
-  console.log("Front-end polling...");
+  // console.log("Front-end polling...");
 
   if(personData && personData.state.value == state){
     console.log("Sending Person Data to front-end...");
