@@ -22,136 +22,140 @@
 
 <body style="background-color:#F3FFFF;">
 
-    <div id="sample-main" class="container-fluid">
-      <div class="row">
-        <div class="col-sm-12 welcome-header">
-            <h1>VISITOR MANAGEMENT SYSTEM</h1>
-        </div>
-        <div class="col-sm-12 welcome-category">
-            <p>To begin, use the SingPass Mobile (TEST) screen on the right to simulate the scanning of the QR Code displayed on the kiosk.</p>
-            <p>Once the consent is given on the SingPass Mobile (TEST) screen, the fields below will be populated by the payload file received using a listener.</p>
-        </div>
+  <div id="sample-main" class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 welcome-header">
+        <h1>VISITOR MANAGEMENT SYSTEM</h1>
       </div>
-      <hr class="pb-3">
-      <div class="row mt-4">
-        <label class="col-sm-3">
+      <div class="col-sm-12 welcome-category">
+        <p>To begin, use the SingPass Mobile (TEST) screen on the right to simulate the scanning of the QR Code displayed on the kiosk.</p>
+        <p>Once the consent is given on the SingPass Mobile (TEST) screen, the fields below will be populated by the payload file received using a listener.</p>
+      </div>
+    </div>
+    <hr class="pb-3">
+    <div class="row mt-4">
+      <label class="col-sm-3">
             Name:
         </label>
-        <div class="col-sm-6">
-          <input type="text" name="name" id="name" disabled> <img src="assets/images/blue-loading.gif" class="loading-img">
-        </div>
+      <div class="col-sm-6">
+        <input type="text" name="name" id="name" disabled/> <img src="assets/images/blue-loading.gif" class="loading-img"/>
       </div>
-      <div class="row mt-2">
-        <label class="col-sm-3">
+    </div>
+    <div class="row mt-2">
+      <label class="col-sm-3">
             Partial NRIC:
         </label>
-        <div class="col-sm-6">
-          <input type="text" name="partialuinfin" id="partialuinfin" disabled> <img src="assets/images/blue-loading.gif" class="loading-img">
-        </div>
+      <div class="col-sm-6">
+        <input type="text" name="partialuinfin" id="partialuinfin" disabled/> <img src="assets/images/blue-loading.gif" class="loading-img"/>
       </div>
-      <div class="row mt-2">
-        <label class="col-sm-3">
+    </div>
+    <div class="row mt-2">
+      <label class="col-sm-3">
             Race:
         </label>
-        <div class="col-sm-6">
-          <input type="text" name="race" id="race" disabled> <img src="assets/images/blue-loading.gif" class="loading-img">
-        </div>
+      <div class="col-sm-6">
+        <input type="text" name="race" id="race" disabled/> <img src="assets/images/blue-loading.gif" class="loading-img"/>
       </div>
-      <div class="row mt-2">
-        <label class="col-sm-3">
+    </div>
+    <div class="row mt-2">
+      <label class="col-sm-3">
             Date of Birth:
         </label>
-        <div class="col-sm-6">
-          <input type="text" name="dob" id="dob" disabled> <img src="assets/images/blue-loading.gif" class="loading-img">
-        </div>
+      <div class="col-sm-6">
+        <input type="text" name="dob" id="dob" disabled/> <img src="assets/images/blue-loading.gif" class="loading-img"/>
       </div>
-      <div class="row mt-2">
-        <label class="col-sm-3">
+    </div>
+    <div class="row mt-2">
+      <label class="col-sm-3">
             Mobile No:
         </label>
-        <div class="col-sm-6">
-          <input type="text" name="name" id="mobileno" disabled> <img src="assets/images/blue-loading.gif" class="loading-img">
-        </div>
-      </div>
-
-        <a class="restart-link" onclick="reset()" id="resetButton">
-            <span class="fa fa-undo"></span> RESTART
-        </a>
-        </div>
+      <div class="col-sm-6">
+        <input type="text" name="name" id="mobileno" disabled/> <img src="assets/images/blue-loading.gif" class="loading-img"/>
       </div>
     </div>
 
-    <script type="text/javascript" src="assets/vendor/jquery-3.4.1.min.js"></script>
-    <script>
-      window.onload = function(){
-        $("#resetButton").hide();
+    <a class="restart-link" onclick="reset()" id="resetButton">
+            <span class="fa fa-undo"></span> RESTART
+        </a>
+  </div>
+  </div>
+  </div>
 
-        // 'state' should be randomly generated and add to QR
-        // This is just a demo, it is set in config.json
-        var state;
-        $.ajax({
-            url: "http://localhost:3002/applicationstate",
+  <script type="text/javascript" src="assets/vendor/jquery-3.4.1.min.js"></script>
+  <script>
+    window.onload = function() {
+      $("#resetButton").hide();
+      $(".loading-img").hide();
+
+      // 'state' should be randomly generated and add to QR
+      // This is just a demo, it is set in config.json
+      var state;
+      $.ajax({
+        url: "http://localhost:3002/applicationstate",
+        type: "GET",
+        success: function(data) {
+          state = data;
+        },
+        dataType: "json",
+        timeout: 5000
+      });
+
+      (function poll() {
+        setTimeout(function() {
+          // $(".loading-img").show();
+          $.ajax({
+            url: "http://localhost:3002/getData?state=" + state,
             type: "GET",
             success: function(data) {
-              state = data;
+              $("#resetButton").show();
+              populate(data);
+              // $(".loading-img").hide();
             },
             dataType: "json",
+            complete: poll,
             timeout: 5000
-        });
+          })
+        }, 5000);
+      })();
+    }
 
-        (function poll() {
-          setTimeout(function() {
-              $.ajax({
-                  url: "http://localhost:3002/getData?state="+state,
-                  type: "GET",
-                  success: function(data) {
-                    $("#resetButton").show();
-                    populate(data);
-                  },
-                  dataType: "json",
-                  complete: poll,
-                  timeout: 5000
-              })
-          }, 5000);
-        })();
-      }
+    function reset() {
+      $("#resetButton").hide();
+      $(".loading-img").hide();
+      resetForm();
+    }
 
-      function reset(){
-        $("#resetButton").hide();
-        resetForm();
-      }
+    function populate(data) {
+      document.getElementById('name').value = data.name ? data.name.value : "";
+      document.getElementById('partialuinfin').value = data.partialuinfin ? data.partialuinfin.value : "";
+      document.getElementById('dob').value = data.dob ? formatDate(data.dob.value) : "";
+      document.getElementById('race').value = data.race ? data.race.desc : "";
+      document.getElementById('mobileno').value = data.mobileno ? data.mobileno.nbr.value : "";
+    }
 
-      function populate(data){
-        document.getElementById('name').value = data.name ? data.name.value : "";
-        document.getElementById('partialuinfin').value = data.partialuinfin ? data.partialuinfin.value : "";
-        document.getElementById('dob').value = data.dob ? formatDate(data.dob.value) : "";
-        document.getElementById('race').value = data.race ? data.race.desc : "";
-        document.getElementById('mobileno').value = data.mobileno ? data.mobileno.nbr.value : "";
-      }
+    function resetForm() {
+      document.getElementById('name').value = "";
+      document.getElementById('partialuinfin').value = "";
+      document.getElementById('dob').value = "";
+      document.getElementById('race').value = "";
+      document.getElementById('mobileno').value = "";
+    }
 
-      function resetForm(){
-        document.getElementById('name').value = "";
-        document.getElementById('partialuinfin').value = "";
-        document.getElementById('dob').value =  "";
-        document.getElementById('race').value =  "";
-        document.getElementById('mobileno').value =  "";
-      }
+    function formatDate(date) {
+      var d = new Date(date);
+      var monthNames = [
+        "Jan", "Feb", "Mar",
+        "Apr", "May", "Jun", "Jul",
+        "Aug", "Sep", "Oct",
+        "Nov", "Dec"
+      ];
 
-      function formatDate(date) {
-        var d = new Date(date);
-        var monthNames = [
-          "Jan", "Feb", "Mar",
-          "Apr", "May", "Jun", "Jul",
-          "Aug", "Sep", "Oct",
-          "Nov", "Dec"
-        ];
+      var day = d.getDate();
+      var monthIndex = d.getMonth();
+      var year = d.getFullYear();
 
-        var day = d.getDate();
-        var monthIndex = d.getMonth();
-        var year = d.getFullYear();
-
-        return day + ' ' + monthNames[monthIndex] + ' ' + year;
-      }
-    </script>
+      return day + ' ' + monthNames[monthIndex] + ' ' + year;
+    }
+  </script>
 
 </body>
