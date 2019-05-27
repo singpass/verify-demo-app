@@ -38,7 +38,6 @@
     </div>
   </div>
 
-
   <div id="main-consent" class="container">
     <div class="row">
       <div class="col-sm-12 mt-2 mb-2">
@@ -87,6 +86,18 @@
       </div>
     </div>
   </div>
+  <div id="main-success" class="container">
+    <div class="row">
+      <div class="col-sm-12 mt-3">
+        <div class="card card-shadow full-height-card text-center">
+          <div class="success-section">
+            <img src="assets/images/blue-loading.gif" class="success-img pb-3">
+          </div>
+          <span class="verifying-text">VERIFYING</span>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- consent screen end -->
 
 
@@ -96,24 +107,33 @@
   <script src='assets/js/custom.js'></script>
 
   <script>
+    $("#main-success").hide();
     function onSlideComplete() {
       slider = document.querySelector('.slide-to-send');
       sliderInput = slider.querySelector('input');
+
 
       if(sliderInput.value==100){
         $.ajax({
   				url: "/myinfo",
   				data: {},
   				type: "GET", // get from serverside
+          beforeSend: function() {
+            // Showing loading screen until getting a response
+            $("#main-consent").hide();
+            $("#main-success").show();
+          },
   				success: function(data) {
   					// successful response from serverside
   					if (data.statusCode == 200) { // successful
   						// fill up the application form
-              // window.location.href = "spm-success.html";
-              window.location.href = "spm-loading.html";
+              window.location.href = "spm-success.html";
+              // window.location.href = "spm-loading.html";
 
   					} else {
-  						// error occured
+              // error occured
+              $("#main-success").hide();
+              $("#main-consent").show();
   						alert("ERROR:" + JSON.stringify(data.msg));
   					}
 
