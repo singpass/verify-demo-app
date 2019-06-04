@@ -1,9 +1,10 @@
 const express = require('express')
 const app = express()
 const port = 3004
-const config = require('./config/config.json')
+const config = require('./config/config.js')
 const requestHandler = require('./util/requestHandler.js')
 const security = require('./security/security.js')
+var moment = require('moment');
 
 app.get('/:uinfin', function(req, res){
     var uinfin = req.params.uinfin; // From SingPass Mobile
@@ -23,23 +24,29 @@ app.get('/:uinfin', function(req, res){
     console.log("Mock MyInfo - ", personSampleRequest);
 
     //Calling sandbox person sample api to get person data
-    var personSample;
     requestHandler.getHttpsResponse(personSampleRequest.domain, personSampleRequestPath, personSampleRequest.headers, personSampleRequest.method, "")
       .then(result => {
         if(result){
-          personSample = JSON.parse(result.msg);
 
           // Encrypting person data
-          console.log("Mock MyInfo - Encrypting...");
-          return security.encryptCompactJWE(publicKey, personSample.identity);
+          if(config.security == "payload_in_clear"){
+            return JSON.parse(result.msg);
+          }
+          else if(config.security == "payload_with_encryption_and_signing"){
+            console.log("Mock MyInfo - Encrypting...");
+            return security.encryptCompactJWE(publicKey, result.msg);
+          }
         }
         else{
           throw "No result.";
         }
       })
-      .then(encryptedData => {
-        if(encryptedData){
-          personSample.identity = encryptedData;
+      .then(processedData => {
+        if(processedData){
+          var timestamp = moment().format('YYYY-MM-DDTHH:mm:ss');
+          timestamp = moment(timestamp).add(8, 'hours'); // + 8hours for singapore
+          var personSample = formulateResponse(state, timestamp.toJSON(), txnNo, processedData);
+
           console.log("Mock MyInfo - consolidatedResponse: ", personSample);
 
           // Format callback url to call partner's webhook

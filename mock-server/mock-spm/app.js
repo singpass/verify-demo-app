@@ -6,7 +6,7 @@ const nonce = require('nonce')();
 
 
 //Config with person data
-var config = require('./config/config.json');
+var config = require('./config/config.js');
 var myinfoURL = config.myinfoURL;
 var state = config.state;
 

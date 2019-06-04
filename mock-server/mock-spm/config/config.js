@@ -1,4 +1,6 @@
-{
+var config;
+
+config = {
   "clientId": "STG2-SGVERIFY-SELF-TEST",
   "myinfoURL": "localhost:3004",
   "state": "testing123",
@@ -10,4 +12,6 @@
     },
     "method": "GET"
   }
-}
+};
+
+module.exports = config;

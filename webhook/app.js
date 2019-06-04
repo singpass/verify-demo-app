@@ -7,7 +7,7 @@ const cors = require('cors');
 const security = require('./security/security.js');
 
 // Config
-var config = require('./config/config.json');
+var config = require('./config/config.js');
 
 // Global personData to be used for saving personData temporately for polling
 var personData = "";
@@ -50,38 +50,43 @@ app.post('/callback', function(req, res){
       res.sendStatus(500);
     }
 
-    // Verify app secret
-    var appSecret = req.headers['x-api-key'];
-    console.log(req.headers);
-    console.log(appSecret);
-    if(!authenticate(appSecret)){
-      // Unauthorised
-      res.type('application/json');
-      res.status(401).send({
-        "code": 401,
-        "message": "Unauthorised"
-      });
+    if(config.security == "payload_in_clear"){
+      console.log("Data:", JSON.stringify(data));
+      personData = data;
     }
-    else{
-      // Authenticated successfully
-      console.log("Data(JWE):", JSON.stringify(data));
-      // Decrypting person data
-      security.decryptJWE(data.identity, config.MYINFO_APP_SIGNATURE_CERT_PRIVATE_KEY)
-        .then(decryptedData => {
-          console.log("Data(JWS):",decryptedData);
-
-          // Verify JWS
-          return security.verifyJWS(config.MYINFO_CONSENTPLATFORM_SIGNATURE_CERT_PUBLIC_CERT, decryptedData);
-        })
-        .then(decodedData => {
-          if(decodedData){
-            data.identity = decodedData;
-            personData = data;
-          }
-        })
-        .catch(error => {
-          console.log("Error: ", error);
+    else if(config.security == "payload_with_encryption_and_signing"){
+      // Verify app secret
+      var appSecret = req.headers['x-api-key'];
+      console.log(req.headers);
+      if(!authenticate(appSecret)){
+        // Unauthorised
+        res.type('application/json');
+        res.status(401).send({
+          "code": 401,
+          "message": "Unauthorised"
         });
+      }
+      else{
+        // Authenticated successfully
+        console.log("Data(JWE):", JSON.stringify(data));
+        // Decrypting person data
+        security.decryptJWE(data.identity, config.MYINFO_APP_SIGNATURE_CERT_PRIVATE_KEY)
+          .then(decryptedData => {
+            console.log("Data(JWS):",decryptedData);
+
+            // Verify JWS
+            return security.verifyJWS(config.MYINFO_CONSENTPLATFORM_SIGNATURE_CERT_PUBLIC_CERT, decryptedData);
+          })
+          .then(decodedData => {
+            if(decodedData){
+              data.identity = decodedData;
+              personData = data;
+            }
+          })
+          .catch(error => {
+            console.log("Error: ", error);
+          });
+      }
     }
   }
   catch(error){

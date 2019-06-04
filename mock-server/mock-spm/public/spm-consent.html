@@ -124,20 +124,20 @@
             $("#main-success").show();
           },
   				success: function(data) {
+            console.log(data);
   					// successful response from serverside
   					if (data.statusCode == 200) { // successful
   						// fill up the application form
               window.location.href = "spm-success.html";
               // window.location.href = "spm-loading.html";
 
-  					} else {
-              // error occured
-              $("#main-success").hide();
-              $("#main-consent").show();
-  						alert("ERROR:" + JSON.stringify(data.msg));
   					}
-
-  				}
+  				},
+          error: function(data) {
+            $("#main-success").hide();
+            $("#main-consent").show();
+            alert("ERROR:" + JSON.stringify(data));
+          }
   			});
       }
     }
