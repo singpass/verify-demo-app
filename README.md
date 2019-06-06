@@ -37,6 +37,43 @@ http://localhost:3001
 
 
 ---
+## Enable Payload Encryption & Signing
+
+**Mock MyInfo**
+Edit the ``mock-myinfo/config/config.js``. Look for ``Without encryption and signing``, comment out these configurations,
+```
+config.security = "payload_in_clear";
+config.personSampleRequest = {
+  "domain": "sandbox.api.myinfo.gov.sg",
+  "requestPath" : "/com/v3/person-sample",
+  "headers": {},
+  "method": "GET"
+}
+```
+
+
+Look for ``With encryption and signing``, uncomment out these configurations,
+```
+// config.security = "payload_with_encryption_and_signing";
+// config.personSampleRequest = {
+//   "domain": "sandbox.api.myinfo.gov.sg",
+//   "requestPath" : "/spm/v3/person-sample-jws",
+//   "headers": {},
+//   "method": "GET"
+// }
+```
+
+**Webhook**
+Edit the ``webhook/config/config.js``. Look for ``Without encryption and signing``, comment out these configurations,
+```
+config.security = "payload_in_clear";
+```
+
+
+Look for ``With encryption and signing``, uncomment out these configurations,
+```
+// config.security = "payload_with_encryption_and_signing";
+```
 
 ## Reporting issues
 
