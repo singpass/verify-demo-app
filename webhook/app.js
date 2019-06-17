@@ -9,8 +9,9 @@ const security = require('./security/security.js');
 // Config
 var config = require('./config/config.js');
 
-// Global personData to be used for saving personData temporately for polling
-var personData = "";
+// Global personData to be used for saving personData temporately for polling.
+// Database can be used to replace this variable.
+var personData = {};
 
 app.use(express.json());
 app.use(cors());
@@ -24,12 +25,11 @@ app.get('/applicationstate', function(req, res){
 app.get('/getData', function(req, res){
   var state = req.query.state;
   // console.log("Front-end polling...");
-
-  if(personData && personData.state.value == state){
+  if(personData[state]){
     console.log("Sending Person Data to front-end...");
-    res.jsonp(personData.identity);
+    res.jsonp(personData[state].identity);
     // Reset personData variable
-    personData = "";
+    delete personData[state];
   }
   else{
     res.sendStatus(202);
@@ -53,7 +53,8 @@ app.post('/callback', function(req, res){
     // Without encryption (JWE) and signing (JWS)
     if(!config.security.encryption){
       console.log("Data:", JSON.stringify(data));
-      personData = data;
+      personData = {};
+      personData[data.state.value] = data;
     }
     // With encryption (JWE) and signing (JWS)
     else if(config.security.encryption){
@@ -81,8 +82,14 @@ app.post('/callback', function(req, res){
           })
           .then(decodedData => {
             if(decodedData){
+              // *********************************************************
+              // This is where you can store the data into your database.
+              // *********************************************************
               data.identity = decodedData;
-              personData = data;
+              personData = {};
+
+              // State is used as the key for front-end to retrieve the data
+              personData[data.state.value] = data;
             }
           })
           .catch(error => {
