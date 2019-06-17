@@ -8,10 +8,12 @@ config = {
   "state": "testing123",
 };
 
+config.security = {};
+
 // Without encryption and signing
-config.security = "payload_in_clear";
+config.security.encryption = false;
 
 // With encryption and signing
-// config.security = "payload_with_encryption_and_signing";
+// config.security.encryption = true;
 
 module.exports = config;

@@ -12,10 +12,8 @@ config = {
   }
 };
 
+config.security = {};
 
-
-// Without encryption and signing
-config.security = "payload_in_clear";
 config.personSampleRequest = {
   "domain": "sandbox.api.myinfo.gov.sg",
   "requestPath" : "/com/v3/person-sample",
@@ -23,13 +21,19 @@ config.personSampleRequest = {
   "method": "GET"
 }
 
-// With encryption and signing
-// config.security = "payload_with_encryption_and_signing";
-// config.personSampleRequest = {
-//   "domain": "sandbox.api.myinfo.gov.sg",
-//   "requestPath" : "/spm/v3/person-sample-jws",
-//   "headers": {},
-//   "method": "GET"
-// }
+config.personSampleRequestWithJWS = {
+  "domain": "sandbox.api.myinfo.gov.sg",
+  "requestPath" : "/spm/v3/person-sample-jws",
+  "headers": {},
+  "method": "GET"
+}
+
+// Without encryption (JWE) and signing (JWS)
+config.security.encryption = false;
+
+
+// With encryption (JWE) and signing (JWS)
+// config.security.encryption = true;
+
 
 module.exports = config;

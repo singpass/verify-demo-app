@@ -50,11 +50,13 @@ app.post('/callback', function(req, res){
       res.sendStatus(500);
     }
 
-    if(config.security == "payload_in_clear"){
+    // Without encryption (JWE) and signing (JWS)
+    if(!config.security.encryption){
       console.log("Data:", JSON.stringify(data));
       personData = data;
     }
-    else if(config.security == "payload_with_encryption_and_signing"){
+    // With encryption (JWE) and signing (JWS)
+    else if(config.security.encryption){
       // Verify app secret
       var appSecret = req.headers['x-api-key'];
       console.log(req.headers);

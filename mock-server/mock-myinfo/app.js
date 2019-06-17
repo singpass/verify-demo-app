@@ -18,7 +18,17 @@ app.get('/:uinfin', function(req, res){
     var scope = config[clientId].scope;
     var publicKey = config[clientId].publicKey;
 
-    var personSampleRequest = config.personSampleRequest;
+    var personSampleRequest;
+
+    // Without encryption (JWE) and signing (JWS)
+    if(!config.security.encryption){
+      personSampleRequest = config.personSampleRequest;
+    }
+    // With encryption (JWE) and signing (JWS)
+    else if(config.security.encryption){
+      personSampleRequest = config.personSampleRequestWithJWS;
+    }
+
     var personSampleRequestPath = personSampleRequest.requestPath +"/"+uinfin+"?attributes="+scope+"&state="+state+"&txnNo="+txnNo;
 
     console.log("Mock MyInfo - ", personSampleRequest);
@@ -27,12 +37,12 @@ app.get('/:uinfin', function(req, res){
     requestHandler.getHttpsResponse(personSampleRequest.domain, personSampleRequestPath, personSampleRequest.headers, personSampleRequest.method, "")
       .then(result => {
         if(result){
-
-          // Encrypting person data
-          if(config.security == "payload_in_clear"){
+          // Without encryption (JWE) and signing (JWS)
+          if(!config.security.encryption){
             return JSON.parse(result.msg);
           }
-          else if(config.security == "payload_with_encryption_and_signing"){
+          // With encryption (JWE) and signing (JWS)
+          else if(config.security.encryption){
             console.log("Mock MyInfo - Encrypting...");
             return security.encryptCompactJWE(publicKey, result.msg);
           }

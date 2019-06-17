@@ -42,37 +42,25 @@ http://localhost:3001
 **Mock MyInfo**
 Edit the ``mock-myinfo/config/config.js``. Look for ``Without encryption and signing``, comment out these configurations,
 ```
-config.security = "payload_in_clear";
-config.personSampleRequest = {
-  "domain": "sandbox.api.myinfo.gov.sg",
-  "requestPath" : "/com/v3/person-sample",
-  "headers": {},
-  "method": "GET"
-}
+config.security.encryption = false;
 ```
 
 
 Look for ``With encryption and signing``, uncomment out these configurations,
 ```
-// config.security = "payload_with_encryption_and_signing";
-// config.personSampleRequest = {
-//   "domain": "sandbox.api.myinfo.gov.sg",
-//   "requestPath" : "/spm/v3/person-sample-jws",
-//   "headers": {},
-//   "method": "GET"
-// }
+// config.security.encryption = true;
 ```
 
 **Webhook**
 Edit the ``webhook/config/config.js``. Look for ``Without encryption and signing``, comment out these configurations,
 ```
-config.security = "payload_in_clear";
+config.security.encryption = false;
 ```
 
 
 Look for ``With encryption and signing``, uncomment out these configurations,
 ```
-// config.security = "payload_with_encryption_and_signing";
+// config.security.encryption = true;
 ```
 
 ## Reporting issues
