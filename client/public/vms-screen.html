@@ -87,35 +87,30 @@
       $("#resetButton").hide();
 
       // 'state' should be randomly generated and add to QR
-      // This is just a demo, it is set in config.json
-      var state;
-      $.ajax({
-        url: "http://localhost:3002/applicationstate",
-        type: "GET",
-        success: function(data) {
-          state = data;
-        },
-        dataType: "json",
-        timeout: 5000
-      });
+      // 'state' is used to listen to the stream for concurrency
+      // This is just a demo
+      var state = "testing123";
 
-      (function poll() {
-        setTimeout(function() {
-          // $(".loading-img").show();
-          $.ajax({
-            url: "http://localhost:3002/getData?state=" + state,
-            type: "GET",
-            success: function(data) {
-              $("#resetButton").show();
-              populate(data);
-              // $(".loading-img").hide();
-            },
-            dataType: "json",
-            complete: poll,
-            timeout: 1000
-          })
-        }, 1000);
-      })();
+      if (!!window.EventSource) {
+        const source = new EventSource('http://localhost:3002/stream')
+
+        source.addEventListener(state, function(e) {
+          var data = JSON.parse(e.data);
+          $("#resetButton").show();
+          populate(data);
+        }, false)
+
+        source.addEventListener('error', function(e) {
+          if (e.target.readyState == EventSource.CLOSED) {
+            console.log("Disconnected from /stream");
+          } else if (e.target.readyState == EventSource.CONNECTING) {
+            console.log('Connecting to /stream');
+          }
+        }, false)
+      } else {
+        console.log("Your browser doesn't support SSE")
+      }
+
     }
 
     function reset() {

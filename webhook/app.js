@@ -9,33 +9,15 @@ const security = require('./security/security.js');
 // Config
 var config = require('./config/config.js');
 
-// Global personData to be used for saving personData temporately for polling.
-// Database can be used to replace this variable.
-var personData = {};
-
 app.use(express.json());
 app.use(cors());
 
-// return application state to the front-end
-app.get('/applicationstate', function(req, res){
-    res.jsonp(config.state);
-});
+var SSE = require('express-sse');
+var sse = new SSE();
 
-// For front-end to poll for personData
-app.get('/getData', function(req, res){
-  var state = req.query.state;
-  // console.log("Front-end polling...");
-  if(personData[state]){
-    console.log("Sending Person Data to front-end...");
-    res.jsonp(personData[state].identity);
-    // Reset personData variable
-    delete personData[state];
-  }
-  else{
-    res.sendStatus(202);
-  }
-});
 
+// a simple channel to allow front-end to connect to the server
+app.get('/stream', sse.init);
 
 // Webhook to allow MyInfo to push data
 app.post('/callback', function(req, res){
@@ -53,8 +35,10 @@ app.post('/callback', function(req, res){
     // Without encryption (JWE) and signing (JWS)
     if(!config.security.encryption){
       console.log("Data:", JSON.stringify(data));
-      personData = {};
-      personData[data.state.value] = data;
+
+      // Sending data to the stream by the state
+      // Front-end will listen to the specified state
+      sse.send(data.identity, data.state.value);
     }
     // With encryption (JWE) and signing (JWS)
     else if(config.security.encryption){
@@ -82,14 +66,14 @@ app.post('/callback', function(req, res){
           })
           .then(decodedData => {
             if(decodedData){
+              console.log("Data:", JSON.stringify(decodedData));
               // *********************************************************
               // This is where you can store the data into your database.
               // *********************************************************
-              data.identity = decodedData;
-              personData = {};
 
-              // State is used as the key for front-end to retrieve the data
-              personData[data.state.value] = data;
+              // Sending data to the stream by the state
+              // Front-end will listen to the specified state
+              sse.send(decodedData, data.state.value);
             }
           })
           .catch(error => {
