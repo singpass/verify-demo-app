@@ -6,6 +6,23 @@ const requestHandler = require('./util/requestHandler.js')
 const security = require('./security/security.js')
 var moment = require('moment');
 
+app.get('/getscope', function(req, res){
+  var request = {
+    "domain": "test.api.myinfo.gov.sg",
+    "requestPath": "/tools/v3/datacatalog?attributes="+config['STG2-SGVERIFY-SELF-TEST'].scope,
+    "headers": {},
+    "method": "GET"
+  };
+
+  requestHandler.getHttpsResponse(request.domain, request.requestPath, request.headers, request.method,"")
+    .then(result=> {
+      res.jsonp(result.msg);
+    })
+    .catch(error => {
+      res.sendStatus(500);
+    })
+});
+
 app.get('/:uinfin', function(req, res){
     var uinfin = req.params.uinfin; // From SingPass Mobile
     var clientId = req.query.clientId; // From SingPass Mobile

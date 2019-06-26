@@ -54,28 +54,8 @@
               </p>
             </div>
           </div>
-          <div class="card-body">
-            <table style="width: 100%;">
-              <tr class="data-row sep-below first-row">
-                <td class="text-label">Name</td>
-                <td valign="top" id="name"/>
-              </tr>
-              <tr class="data-row sep-below">
-                <td class="text-label">Partial NRIC</td>
-                <td id="partialuinfin"/>
-              </tr>
-              <tr class="data-row sep-below">
-                <td class="text-label">Race</td>
-                <td id="race"/>
-              </tr>
-              <tr class="data-row sep-below">
-                <td class="text-label">Date of Birth</td>
-                <td id="dob"/>
-              </tr>
-              <tr class="data-row last-row">
-                <td class="text-label">Mobile No.</td>
-                <td id="mobileno"/>
-              </tr>
+          <div class="data-list">
+            <table style="width: 100%;" id="scopeTable">
             </table>
           </div>
         </div>
@@ -142,21 +122,24 @@
     }
 
     $.ajax({
-        url: "/getCurrentProfile",
+        url: "/getscope",
         type: "GET",
         success: function(data) {
-          populate(data);
+          populate(JSON.parse(data));
         },
         dataType: "json",
         timeout: 5000
     });
 
-    function populate(data){
-      document.getElementById('name').innerHTML = data.name ? data.name.value : "";
-      document.getElementById('partialuinfin').innerHTML = data.partialuinfin ? data.partialuinfin.value : "";
-      document.getElementById('dob').innerHTML = data.dob ? formatDate(data.dob.value) : "";
-      document.getElementById('race').innerHTML = data.race ? data.race.desc : "";
-      document.getElementById('mobileno').innerHTML = data.mobileno ? data.mobileno.nbr.value : "";
+    function populate(arr){
+    	var table = document.getElementById("scopeTable");
+      for(let i = 0; i < arr.length; i++){
+      	let row = table.insertRow(i);
+          row.className = "data-row sep-below";
+          var cell = row.insertCell(0);
+          cell.className = "text-label";
+          cell.innerHTML = arr[i].desc;
+      }
     }
 
     function formatDate(date) {

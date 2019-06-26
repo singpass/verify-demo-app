@@ -33,6 +33,24 @@ app.get('/getCurrentProfile', function(req, res){
     res.send(persona[selectedUinfin]);
 });
 
+app.get('/getscope', function(req, res){
+  var request = {
+    "domain": "localhost",
+    "port": 3004,
+    "requestPath": "/getscope",
+    "headers": {},
+    "method": "GET"
+  };
+  requestHandler.getHttpResponse(request.domain, request.port, request.requestPath, request.headers, request.method, "")
+    .then(result => {
+      res.jsonp(JSON.parse(result.msg));
+    })
+    .catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    })
+});
+
 app.get('/myinfo', function(req, res){
   var clientId = config.clientId;
   var txnNo = nonce();
