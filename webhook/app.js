@@ -32,9 +32,24 @@ app.post('/callback', function(req, res){
       res.sendStatus(500);
     }
 
+    // Verify app secret
+    var appSecret = req.headers['x-api-key'];
+    console.log(req.headers);
+
+    console.log("VMS - Verifying X-API-KEY...");
+    if(!authenticate(appSecret)){
+      console.log("VMS - Wrong X-API-KEY...");
+      // Unauthorised
+      res.type('application/json');
+      res.status(401).send({
+        "code": 401,
+        "message": "Unauthorised"
+      });
+    }
+
     // Without encryption (JWE) and signing (JWS)
     if(!config.security.encryption){
-      console.log("Data:", JSON.stringify(data));
+      console.log("VMS - Data:", JSON.stringify(data));
 
       // Sending data to the stream by the state
       // Front-end will listen to the specified state
@@ -42,53 +57,42 @@ app.post('/callback', function(req, res){
     }
     // With encryption (JWE) and signing (JWS)
     else if(config.security.encryption){
-      // Verify app secret
-      var appSecret = req.headers['x-api-key'];
-      console.log(req.headers);
-      if(!authenticate(appSecret)){
-        // Unauthorised
-        res.type('application/json');
-        res.status(401).send({
-          "code": 401,
-          "message": "Unauthorised"
+      // Authenticated successfully
+      console.log("VMS - Data(JWE):", JSON.stringify(data));
+      // Decrypting person data
+      security.decryptJWE(data.identity, config.MYINFO_APP_SIGNATURE_CERT_PRIVATE_KEY)
+        .then(decryptedData => {
+          console.log("VMS - Data(JWS):",decryptedData);
+
+          // Verify JWS
+          return security.verifyJWS(config.MYINFO_CONSENTPLATFORM_SIGNATURE_CERT_PUBLIC_CERT, decryptedData);
+        })
+        .then(decodedData => {
+          if(decodedData){
+            console.log("VMS - Data:", JSON.stringify(decodedData));
+            // *********************************************************
+            // This is where you can store the data into your database.
+            // *********************************************************
+
+            // Sending data to the stream by the state
+            // Front-end will listen to the specified state
+            sse.send(decodedData, data.state.value);
+          }
+        })
+        .catch(error => {
+          console.log("VMS - Error: ", error);
         });
-      }
-      else{
-        // Authenticated successfully
-        console.log("Data(JWE):", JSON.stringify(data));
-        // Decrypting person data
-        security.decryptJWE(data.identity, config.MYINFO_APP_SIGNATURE_CERT_PRIVATE_KEY)
-          .then(decryptedData => {
-            console.log("Data(JWS):",decryptedData);
-
-            // Verify JWS
-            return security.verifyJWS(config.MYINFO_CONSENTPLATFORM_SIGNATURE_CERT_PUBLIC_CERT, decryptedData);
-          })
-          .then(decodedData => {
-            if(decodedData){
-              console.log("Data:", JSON.stringify(decodedData));
-              // *********************************************************
-              // This is where you can store the data into your database.
-              // *********************************************************
-
-              // Sending data to the stream by the state
-              // Front-end will listen to the specified state
-              sse.send(decodedData, data.state.value);
-            }
-          })
-          .catch(error => {
-            console.log("Error: ", error);
-          });
-      }
     }
   }
   catch(error){
-    console.log("Error:",error);
+    console.log("VMS - Error:",error);
   }
 });
 
+// To verify X-API-KEY
 function authenticate(appSecret){
   if(appSecret == config.QRID_APP_CLIENT_SECRET){
+    console.log("VMS - X-API-KEY verified.");
     return true;
   }
   else{

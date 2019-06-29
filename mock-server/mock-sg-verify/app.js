@@ -48,7 +48,7 @@ app.get('/:uinfin', function(req, res){
 
     var personSampleRequestPath = personSampleRequest.requestPath +"/"+uinfin+"?attributes="+scope+"&state="+state+"&txnNo="+txnNo;
 
-    console.log("Mock MyInfo - ", personSampleRequest);
+    console.log("SG-Verify - ", personSampleRequest);
 
     //Calling sandbox person sample api to get person data
     requestHandler.getHttpsResponse(personSampleRequest.domain, personSampleRequestPath, personSampleRequest.headers, personSampleRequest.method, "")
@@ -60,7 +60,7 @@ app.get('/:uinfin', function(req, res){
           }
           // With encryption (JWE) and signing (JWS)
           else if(config.security.encryption){
-            console.log("Mock MyInfo - Encrypting...");
+            console.log("SG-Verify - Encrypting...");
             return security.encryptCompactJWE(publicKey, result.msg);
           }
         }
@@ -74,7 +74,7 @@ app.get('/:uinfin', function(req, res){
           timestamp = moment(timestamp).add(8, 'hours'); // + 8hours for singapore
           var personSample = formulateResponse(state, timestamp.toJSON(), txnNo, processedData);
 
-          console.log("Mock MyInfo - consolidatedResponse: ", personSample);
+          console.log("SG-Verify - consolidatedResponse: ", personSample);
 
           // Format callback url to call partner's webhook
           var pathArr = callback.split('/');
@@ -95,7 +95,7 @@ app.get('/:uinfin', function(req, res){
             "method": "POST"
           };
 
-          console.log("Mock MyInfo - Pushing data...");
+          console.log("SG-Verify - Pushing data...");
           return requestHandler.getHttpResponse(request.domain, request.port, request.requestPath, request.headers, request.method, JSON.stringify(personSample))
         }
         else{
@@ -104,7 +104,7 @@ app.get('/:uinfin', function(req, res){
       })
       .then(result => {
         if(result){
-          console.log("Mock MyInfo -",result);
+          console.log("SG-Verify -",result);
           res.send(
             {
               "code": 200,
@@ -122,7 +122,7 @@ app.get('/:uinfin', function(req, res){
         }
       })
       .catch(error => {
-        console.log("Mock MyInfo - Error:",error);
+        console.log("SG-Verify - Error:",error);
         res.status(500)
           .send(
           {
@@ -133,7 +133,7 @@ app.get('/:uinfin', function(req, res){
       })
 });
 
-app.listen(port, () => console.log(`Mock MyInfo server listening on port ${port}!`))
+app.listen(port, () => console.log(`SG-Verify server listening on port ${port}!`))
 
 
 //Formulate Response

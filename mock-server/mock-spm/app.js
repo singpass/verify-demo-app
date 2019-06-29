@@ -106,7 +106,7 @@ app.get('/getPersona', function(req, res){
         }
       })
       .catch(error => {
-        console.log(error);
+        console.log("Mock SPM - ",error);
         res.sendStatus(500);
       })
   }

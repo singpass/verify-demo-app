@@ -1,5 +1,5 @@
 {
-  "name": "mock-myinfo",
+  "name": "mock-sg-verify",
   "version": "1.0.0",
   "description": "Mock MyInfo server",
   "main": "app.js",

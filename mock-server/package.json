@@ -4,10 +4,10 @@
   "description": "Mock Server",
   "main": "index.js",
   "scripts": {
-    "start": "npm-run-all --parallel mock-spm mock-myinfo",
+    "start": "npm-run-all --parallel mock-spm mock-sg-verify",
     "mock-spm": "npm start --prefix ./mock-spm",
-    "mock-myinfo": "npm start --prefix ./mock-myinfo",
-    "postinstall": "cd ./mock-spm && npm install && cd ../mock-myinfo && npm install"
+    "mock-sg-verify": "npm start --prefix ./mock-sg-verify",
+    "postinstall": "cd ./mock-spm && npm install && cd ../mock-sg-verify && npm install"
   },
   "author": "MyInfo Team",
   "license": "ISC",
