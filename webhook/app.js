@@ -26,26 +26,31 @@ app.post('/callback', function(req, res){
 
     if(data){
       // Data received
-      res.sendStatus(200);
+      
+      // Verify app secret
+      console.log("VMS - Verifying X-API-KEY...");
+      var appSecret = req.headers['x-api-key'];
+      console.log(req.headers);
+      if(!authenticate(appSecret)){
+        console.log("VMS - Wrong X-API-KEY...");
+        // Unauthorised
+        res.type('application/json');
+        res.status(401).send({
+          "code": 401,
+          "message": "Unauthorised"
+        });
+        return;
+      }else{
+        res.sendStatus(200);
+      }
     }
     else{
       res.sendStatus(500);
     }
 
-    // Verify app secret
-    var appSecret = req.headers['x-api-key'];
-    console.log(req.headers);
 
-    console.log("VMS - Verifying X-API-KEY...");
-    if(!authenticate(appSecret)){
-      console.log("VMS - Wrong X-API-KEY...");
-      // Unauthorised
-      res.type('application/json');
-      res.status(401).send({
-        "code": 401,
-        "message": "Unauthorised"
-      });
-    }
+
+
 
     // Without encryption (JWE) and signing (JWS)
     if(!config.security.encryption){
