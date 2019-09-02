@@ -8,7 +8,7 @@ config = {
     "appSecret": "WnBdUYAftjB8gLt4cjl1N01XulG1q7fn",
     "scope": "partialuinfin,name,race,dob,mobileno",
     "callback": "localhost:3002/callback",
-    "publicKey": "./cert/qrid_stg_public_cert.pem"
+    "publicKey": "./cert/your-sample-app-public-key.pem"
   }
 };
 
