@@ -44,8 +44,6 @@ security.decryptJWE = function decryptJWE(compactJWE, privateKey) {
 
     var keystore = jose.JWK.createKeyStore();
 
-    console.log((new Buffer(header,'base64')).toString('ascii'));
-
     var data = {
       "type": "compact",
       "ciphertext": cipherText,
