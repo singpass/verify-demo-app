@@ -1,17 +1,18 @@
 {
-  "name": "sg-verify-demo-app",
-  "version": "1.0.0",
-  "description": "SG Verify Demo App",
+  "name": "verify-demo-app",
+  "version": "2.0.0",
+  "description": "Verify Demo App",
   "scripts": {
-    "start": "npm-run-all --parallel start:client start:webhook start:mockserver",
-    "start:client": "cd ./client && npm start",
-    "start:webhook": "cd ./webhook && npm start",
-    "start:mockserver": "cd ./mock-server && npm start",
-    "postinstall": "cd ./webhook && npm install && cd ../client && npm install && cd ../mock-server && npm install"
+    "start": "npm-run-all --parallel start:your-vms-client start:your-vms-server start:mockserver",
+    "start:your-vms-client": "cd ./your-vms-client && npm start",
+    "start:your-vms-server": "cd ./your-vms-server && npm start",
+    "start:mockserver": "cd ./.mock-server && npm start",
+    "postinstall": "cd ./your-vms-server && npm install && cd ../your-vms-client && npm install && cd ../.mock-server && npm install"
   },
   "author": "MyInfo Team",
   "devDependencies": {
     "npm-run-all": "^4.1.4"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {}
 }

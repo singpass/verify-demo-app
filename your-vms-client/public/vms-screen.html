@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i" rel="stylesheet">
+  <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/jquery-ui/css/jquery-ui.min.css" rel="stylesheet">
+  <link href="assets/vendor/jquery-ui-sliderbutton/css/jquery.ui.sliderbutton.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+  <title>Sample Visitor Management System Screen</title>
+</head>
+
+
+
+<body style="background-color:#F3FFFF;">
+
+  <div id="sample-main" class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 welcome-header">
+        <h1>VISITOR MANAGEMENT SYSTEM V2</h1>
+      </div>
+      <div class="col-sm-12 welcome-category">
+        <p>To begin, use the SingPass Mobile (TEST) screen on the right to simulate the scanning of the QR Code
+          displayed on the kiosk.</p>
+        <p>Once the consent is given on the SingPass Mobile (TEST) screen, the fields below will be populated by the
+          payload file received using a listener.</p>
+      </div>
+    </div>
+    <hr class="pb-3">
+
+    <div id='sample-form'>
+      <div class="row mt-4">
+        <label class="col-sm-3">
+          Name:
+        </label>
+        <div class="col-sm-6">
+          <input type="text" name="name" id="name" disabled />
+        </div>
+      </div>
+      <div class="row mt-2">
+        <label class="col-sm-3">
+          Partial NRIC:
+        </label>
+        <div class="col-sm-6">
+          <input type="text" name="partialuinfin" id="partialuinfin" disabled />
+        </div>
+      </div>
+      <div class="row mt-2">
+        <label class="col-sm-3">
+          Race:
+        </label>
+        <div class="col-sm-6">
+          <input type="text" name="race" id="race" disabled />
+        </div>
+      </div>
+      <div class="row mt-2">
+        <label class="col-sm-3">
+          Date of Birth:
+        </label>
+        <div class="col-sm-6">
+          <input type="text" name="dob" id="dob" disabled />
+        </div>
+      </div>
+      <div class="row mt-2">
+        <label class="col-sm-3">
+          Mobile No:
+        </label>
+        <div class="col-sm-6">
+          <input type="text" name="name" id="mobileno" disabled />
+        </div>
+      </div>
+
+      <a class="restart-link" onclick="reset()" id="resetButton">
+        <span class="fa fa-undo"></span> RESTART
+      </a>
+    </div>
+  </div>
+  </div>
+  <div id="qr-canvas" class="container mt-4">
+    <img src="assets/images/qr-web.png" width="285" height="325" class="qr-web">
+    </img>
+    <canvas id="canvas" class="canvas"></canvas>
+  </div>
+  <div class="kioskstate">
+    <label id="state" class="mt-4"></label>
+  </div>
+
+  </div>
+
+
+
+  <script type="text/javascript" src="assets/vendor/jquery-3.4.1.min.js"></script>
+  <script src="assets/vendor/qrcode-with-logos/dist/QRcode-with-logo.js"></script>
+
+  <script>
+    $("#sample-form").hide();
+    //Generate a random state to signify individual kiosk
+    let kioskState = 'DEMOKIOSK' + Math.floor(Math.random() * 10);
+    document.getElementById('state').innerHTML = "Kiosk State : " + kioskState;
+
+    $.ajax({
+      url: "/qrCode",
+      data: {
+      },
+      headers: {
+        'state': kioskState
+      },
+      type: "GET", // get from serverside
+      beforeSend: function () {
+      },
+      success: function (data) {
+
+        let qrcode = new QrCodeWithLogo({
+          canvas: document.getElementById("canvas"),
+          content: data,
+          width: 225,
+          //   download: true,
+          image: document.getElementById("image"),
+          logo: {
+            src: "assets/images/spm-logo.png"
+          }
+        });
+
+        qrcode.toCanvas().then(() => {
+          console.log('success!');
+
+        })
+      },
+      error: function (data) {
+
+      }
+    });
+
+    window.onload = function () {
+      $("#resetButton").hide();
+
+      // 'state' should be randomly generated and add to QR
+      // 'state' is used to listen to the stream for concurrency
+      // This is just a demo
+      if (!!window.EventSource) {
+        const source = new EventSource('http://localhost:3001/stream');
+
+        source.addEventListener(kioskState, function (e) {
+          var data = JSON.parse(e.data);
+          $("#qr-canvas").hide();
+          $("#state").hide();
+          $("#resetButton").show();
+          $("#sample-form").show();
+          populate(data);
+
+        }, false);
+
+        source.addEventListener('restartApplication', function (e) {
+          reset();
+        }, false);
+
+        source.addEventListener('error', function (e) {
+          if (e.target.readyState == EventSource.CLOSED) {
+            console.log("Disconnected from /stream");
+          } else if (e.target.readyState == EventSource.CONNECTING) {
+            console.log('Connecting to /stream');
+          }
+        }, false);
+
+
+
+
+      } else {
+        console.log("Your browser doesn't support SSE")
+      }
+    }
+
+    function reset() {
+      $.ajax({
+        url: "/qrCode",
+        data: {
+        },
+        headers: {
+          'state': kioskState
+        },
+        type: "GET", // get from serverside
+        beforeSend: function () {
+        },
+        success: function (data) {
+          let qrcode = new QrCodeWithLogo({
+            canvas: document.getElementById("canvas"),
+            content: data,
+            width: 225,
+            //   download: true,
+            image: document.getElementById("image"),
+            logo: {
+              src: "assets/images/spm-logo.png"
+            }
+
+          });
+
+          qrcode.toCanvas().then(() => {
+            $("#resetButton").hide();
+            $("#sample-form").hide();
+            $("#qr-canvas").show();
+            $("#state").show();
+
+            resetForm();
+
+          });
+        },
+        error: function (data) {
+
+        }
+      });
+
+    }
+
+    function populate(data) {
+      document.getElementById('name').value = data.name ? data.name.value : "";
+      document.getElementById('partialuinfin').value = data.partialuinfin ? data.partialuinfin.value : "";
+      document.getElementById('dob').value = data.dob ? formatDate(data.dob.value) : "";
+      document.getElementById('race').value = data.race ? data.race.desc : "";
+      document.getElementById('mobileno').value = data.mobileno ? data.mobileno.nbr.value : "";
+    }
+
+    function resetForm() {
+      document.getElementById('name').value = "";
+      document.getElementById('partialuinfin').value = "";
+      document.getElementById('dob').value = "";
+      document.getElementById('race').value = "";
+      document.getElementById('mobileno').value = "";
+    }
+
+    function formatDate(date) {
+      var d = new Date(date);
+      var monthNames = [
+        "Jan", "Feb", "Mar",
+        "Apr", "May", "Jun", "Jul",
+        "Aug", "Sep", "Oct",
+        "Nov", "Dec"
+      ];
+
+      var day = d.getDate();
+      var monthIndex = d.getMonth();
+      var year = d.getFullYear();
+
+      return day + ' ' + monthNames[monthIndex] + ' ' + year;
+    }
+  </script>
+
+</body>

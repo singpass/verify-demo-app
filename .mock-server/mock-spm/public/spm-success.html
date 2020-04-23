@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+  <link rel="mask-icon" href="assets/images/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="assets/vendor/themify-icons/css/themify-icons.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+  <title>SingPass Mobile (TEST) Success Screen</title>
+</head>
+
+<body style="background-color:#F5F5F5;">
+
+  <!-- success screen start -->
+  <div id="spm-header-home">
+    <div class="container">
+      <strong>SingPass Mobile (TEST)</strong>
+    </div>
+  </div>
+
+  <div id="main-success" class="container">
+    <div class="row">
+      <div class="col-sm-12 mt-3">
+        <div class="card card-shadow full-height-card text-center">
+          <div class="success-section">
+            <img src="assets/images/spm-success.png" class="success-img pb-3">
+            <div class="success-title mt-4">Sent your details!</div>
+            <div class="success-body-text">Follow the instructions at your location to proceed.</div>
+          </div>
+          <button class="btn bottom-btn text-center" onclick="restart()">
+            Restart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- success screen end -->
+
+  <script src='assets/js/custom.js'></script>
+  <script type="text/javascript" src="assets/vendor/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="assets/vendor/jquery-ui/js/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="assets/vendor/jquery-ui-sliderbutton/js/jquery.ui.sliderbutton.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script>
+    //mock flow to regenerate QR Code for faster testing purposes
+    //Call client to recreate a new qr code to bypass nounce check for dynamic QR.
+    function restart() {
+      $.ajax({
+        url: "/restartApplication",
+        type: "GET",
+        success: function (data) {
+          window.location = "spm-phone.html";
+        },
+        dataType: "json",
+        timeout: 5000
+      });
+    }
+
+  </script>
+
+</body>
+
+</html>

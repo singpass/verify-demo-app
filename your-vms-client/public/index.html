@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>Verify Demo App</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+  <link rel="mask-icon" href="assets/images/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <script type="text/javascript" src="assets/vendor/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="assets/js/custom.js"></script>
+</head>
+
+<body>
+  <div class="choose-mobile">
+    <h1>Verify Demo App</h1>
+    <p>Please view it on a desktop screen.</p>
+  </div>
+  <div class="outer-wrapper">
+    <div class="latest latest-active">
+      <div class="rounded-iframe"><iframe class="dev-frame" style="height:680px" frameborder="0"
+          id="visitorManagementScreen" name="devframe"></iframe></div>
+    </div>
+
+    <div id="dev-wrapper" class="medium-frame">
+      <div class="frame-but"></div>
+      <div class="wrapper-one squared-border">
+        <div class="notch-box"></div>
+        <div class="wrapper-two">
+          <div class="rounded-iframe"><iframe class="dev-frame" frameborder="0" id="spmScreen" name="devframe"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <img src="assets/images/sg-verify-illustration.png" class="illustration-img">
+
+</body>
+
+<script>
+  var visitorManagementScreen = "http://localhost:3002/vms";
+  var spmScreen = "http://localhost:3003";
+
+  window.onload = function () {
+    document.getElementById("visitorManagementScreen").src = visitorManagementScreen;
+    document.getElementById("spmScreen").src = spmScreen;
+  }
+</script>
+
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "mock-spm",
+  "version": "1.0.0",
+  "description": "Mock Local SingPass Mobile",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "MyInfo Team",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "follow-redirects": "^1.9.0",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "nonce": "^1.0.4",
+    "colors": "^1.4.0"
+  }
+}

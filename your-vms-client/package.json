@@ -1,0 +1,15 @@
+{
+  "name": "client",
+  "version": "2.0.0",
+  "description": "This is your VMS client",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "MyInfo Team",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.0",
+    "qrcode-with-logos": "^1.0.1"
+  }
+}

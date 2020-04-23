@@ -1,0 +1,71 @@
+{
+  "_from": "qrcode-with-logos",
+  "_id": "qrcode-with-logos@1.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-VTlCsmx/UoG+E8ECPEC6n6kHLSCvBETyzCi9hoAZEShu6q7xulylmvEIpF+PuIem6BddoEpbYfuVVOlVahr/qw==",
+  "_location": "/qrcode-with-logos",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "qrcode-with-logos",
+    "name": "qrcode-with-logos",
+    "escapedName": "qrcode-with-logos",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/qrcode-with-logos/-/qrcode-with-logos-1.0.1.tgz",
+  "_shasum": "cc7da9bfde865d5dd5ce312a92906cf1dce6b6fa",
+  "_spec": "qrcode-with-logos",
+  "_where": "/Users/kahou.cheong/Documents/sg-verify-demo-app/your-vms-client",
+  "author": {
+    "name": "suporka"
+  },
+  "bugs": {
+    "url": "https://github.com/zxpsuper/QRcode-with-logo/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "qrcode": "^1.3.3"
+  },
+  "deprecated": false,
+  "description": "![QRcode-with-logos](https://github.com/zxpsuper/qrcode-with-logos/raw/master/demo.png)",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "file-loader": "^4.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.2",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.7.2",
+    "webpack-merge": "^4.2.1"
+  },
+  "homepage": "https://github.com/zxpsuper/QRcode-with-logo#readme",
+  "keywords": [
+    "qr-code",
+    "logo",
+    "image",
+    "qrCode",
+    "size"
+  ],
+  "license": "MIT",
+  "main": "dist/QRcode-with-logo.js",
+  "name": "qrcode-with-logos",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zxpsuper/QRcode-with-logo.git"
+  },
+  "scripts": {
+    "build": "webpack --config ./webpack.config.js",
+    "start": "webpack-dev-server --hot --open --config ./webpack.dev.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "typings": "types/index.d.ts",
+  "version": "1.0.1"
+}
