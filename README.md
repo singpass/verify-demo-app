@@ -38,7 +38,12 @@ Follow the instructions given by the links below depending on your OS.
 - [Install Node and NPM for Mac](http://blog.teamtreehouse.com/install-node-js-npm-mac)
 
 
-### 1.2 Run NPM install
+### 1.2 [For Windows only] - OpenSSL Installation (_skip this step if you have OpenSSL installed_)
+
+For windows user, you are required to install the OpenSSL library in your computer in order to use [myinfo-connector-nodejs](#lib) library. Please refer to the OpenSSL installation guide [here](https://public.cloud.myinfo.gov.sg/docs/OpenSSL_installation_guide.pdf). 
+
+
+### 1.3 Run NPM install
 
 Run the following command in the folder you unzipped the application:
 
@@ -46,7 +51,7 @@ Run the following command in the folder you unzipped the application:
 npm install
 ```
 
-### 1.3 Start the Application
+### 1.4 Start the Application
 
 Execute the following command to start the application:
 ```
