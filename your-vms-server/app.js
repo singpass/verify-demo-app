@@ -28,7 +28,6 @@ app.get('/callback', function (req, res) {
     //retrieve myinfo data if auth code received
     //ensure code and state are returned
     console.log("Send Auth Code to Registered callback:"+ JSON.stringify(req.query));
-    
     if (req.query && req.query.code && req.query.state) {
       //Recommendation : Check that state returned from callback matches original QR Code from client
       let txnNo = crypto.randomBytes(10).toString("hex");

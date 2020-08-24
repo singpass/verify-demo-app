@@ -17,8 +17,8 @@ config = {
     "method": "GET"
   },
   "mockPassSampleRequest": {
-    "domain": "mockpass.dev.apim.myinfo.gov.sg",
-    "requestPath": "/mock-id-token/",
+    "domain": "test.api.myinfo.gov.sg",
+    "requestPath": "/mockpass-sp/mock-id-token/",
     "headers": {},
     "method": "GET"
   }

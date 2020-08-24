@@ -21,7 +21,7 @@ app.use(express.static('public'));
 
 var getMockPassToken = function () {
   
-  var type = 'JSON';
+  var type = 'JWS';
   var request = config.mockPassSampleRequest;
   let requestPath = request.requestPath + selectedUinfin + "?type=" + type;
 
