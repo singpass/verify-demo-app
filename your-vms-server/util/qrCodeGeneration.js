@@ -1,7 +1,7 @@
 const fs = require('fs');
 const crypto = require('crypto');
 const config = require('../config/config.js');
-var MyInfoConnector = require('myinfo-connector-nodejs');
+const privateKeyController = require('./privateKeyController.js');
 var colors = require('colors');
 
 
@@ -10,8 +10,7 @@ exports.generateQRCode = function (qrType, callbackURL, clientId, state, nonce, 
     var baseURL = formURL(qrType, callbackURL, clientId, state, nonce, signatureMethod, timestampExpiry, timestampStart, version);
     return new Promise((resolve, reject) => {
         if (baseURL) {
-            let connector = new MyInfoConnector(config.MYINFO_CONNECTOR_CONFIG);
-            connector.decryptPrivateKey(config.APP_CONFIG.CLIENT_SECURE_CERT, config.APP_CONFIG.CLIENT_SECURE_CERT_PASSPHRASE)
+            privateKeyController.decryptPrivateKey(config.APP_CONFIG.CLIENT_SECURE_CERT, config.APP_CONFIG.CLIENT_SECURE_CERT_PASSPHRASE)
                 .then(res => {
                     var signedURL = signURL(baseURL, res.key);
                     var qrCode = assemblingUrlWithSignature(baseURL, signedURL);

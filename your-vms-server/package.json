@@ -17,6 +17,7 @@
     "moment": "^2.24.0",
     "myinfo-connector-nodejs": "~0.0.1",
     "node-jose": "^1.1.3",
+    "pem": "^1.14.3",
     "querystring": "^0.2.0"
   }
 }
