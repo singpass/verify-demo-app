@@ -132,7 +132,7 @@ To disable payload encryption and signing. Look for ``With encryption and signin
 
 ## <a name="lib"></a>MyInfo Connector NodeJS
 
-This demo application is using the [myinfo-connector-nodejs](https://github.com/singpass/myinfo-connector-nodejs) library. MyInfo Connector aims to simplify consumer's integration effort by providing an easy to use Javascript library to integrate into your application.
+This demo application is using the [myinfo-connector-nodejs](https://www.npmjs.com/package/myinfo-connector-nodejs) library. MyInfo Connector aims to simplify consumer's integration effort by providing an easy to use Javascript library to integrate into your application.
 
 
 
