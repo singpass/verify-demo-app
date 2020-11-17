@@ -12,6 +12,9 @@ var persona;
 
 var selectedUinfin = "";
 
+var clientId ='';
+var state ='';
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -57,6 +60,15 @@ app.get('/authorise', function (req, res) {
       return getMockQRCode();
     })
     .then(data => {
+      let urlParams = data.msg.split('&');
+      urlParams.forEach(element => {
+        if(element.indexOf('client_id')>=0){
+          clientId = element.split('=')[1];
+        }else if (element.indexOf('state')>=0){
+          state = element.split('=')[1];
+        }
+      });
+
       let mockQRCode = encodeURIComponent(data.msg);
 
       console.log("--- MOCK SPM (calling MOCK Verify Authorise API)---:".grey);
@@ -166,7 +178,9 @@ var callConsentAPI = function (req, res) {
   let consentURL = url.parse(consent.url);
   let body = {
     'consent': req.body.consent,
-    'transactionToken': consent.transactionToken
+    'transactionToken': consent.transactionToken,
+    'client_id': clientId,
+    'state': state
   }
   let request = {
     "domain": consentURL.hostname,
