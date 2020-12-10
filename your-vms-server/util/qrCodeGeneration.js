@@ -32,7 +32,8 @@ exports.generateQRCode = function (qrType, callbackURL, clientId, state, nonce, 
 function formURL(qrType, callbackURL, clientId, state, nonce, signatureMethod, timestampExpiry, timestampStart, version) {
 
     let nonceString = nonce ? "&nonce=" + nonce : '';
-    let baseUrl = "https://singpassmobile.sg/sgverify";
+    let baseUrl = "https://app.singpass.gov.sg/sgverify";
+
     let sgverifyURl = baseUrl +
         "?callback=" + encodeURIComponent(callbackURL) +
         "&client_id=" + clientId +
