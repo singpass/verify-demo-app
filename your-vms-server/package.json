@@ -13,7 +13,7 @@
     "colors": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "express-sse": "^0.5.1",
+    "express-sse": "0.5.1",
     "moment": "^2.24.0",
     "myinfo-connector-nodejs": "~0.0.6",
     "node-jose": "^1.1.3",

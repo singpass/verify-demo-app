@@ -10,7 +10,6 @@ var colors = require('colors');
 const crypto = require('crypto');
 
 // Config
-
 app.use(express.json());
 app.use(cors());
 
