@@ -16,7 +16,7 @@ let MYINFO_CONNECTOR_CONFIG = {
   'CLIENT_ID': APP_CONFIG.YOUR_APP_CLIENT_ID, //Client id provided during onboarding
   'CLIENT_SECRET': APP_CONFIG.YOUR_APP_CLIENT_SECRET, //Client secret provided during onboarding
   'REDIRECT_URL': APP_CONFIG.YOUR_APP_CALLBACK_URL, //Redirect URL for web application
-  'ATTRIBUTES': 'partialuinfin,name,race,dob,mobileno',
+  'ATTRIBUTES': 'partialuinfin,name,race,dob,mobileno,uuid',
   
   
   /* 

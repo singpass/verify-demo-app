@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://ndi-api.gov.sg/library/sg-verify/introduction">
-  <img width="150" src="https://uat.ndi-api.gov.sg/assets/lib/sg-verify/img/sg-verify-logo.jpg">
+  <img width="150" src="https://public.cloud.myinfo.gov.sg/images/logo/verify-rebrand-logo.svg">
   </a>
 </p>
 
