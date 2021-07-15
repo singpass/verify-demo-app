@@ -3,7 +3,7 @@ let APP_CONFIG = {
   'YOUR_APP_CALLBACK_URL': 'http://localhost:3001/callback',
   'YOUR_APP_CLIENT_ID': 'STG2-SGVERIFY-SELF-TEST',
   'YOUR_APP_CLIENT_SECRET': 'WnBdUYAftjB8gLt4cjl1N01XulG1q7fn',
-  'CLIENT_SECURE_CERT': './cert/your-sample-app-certificates.p12',
+  'CLIENT_SECURE_CERT': './cert/your-sample-app-certificate.p12',
   'CLIENT_SECURE_CERT_PASSPHRASE': 'DemoApp'
 }
 
