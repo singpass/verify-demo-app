@@ -9,7 +9,6 @@
   "author": "MyInfo Team",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "qrcode-with-logos": "^1.0.3"
+    "express": "^4.17.1"
   }
 }
